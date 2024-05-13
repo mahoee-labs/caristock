@@ -1,7 +1,13 @@
+# Requirements
+
+* Python 3.12
+
+
 # Quickstart
 
 ```
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+pip3 install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py createsuperuser
+python3 manage.py runserver
 ```
