@@ -1,6 +1,7 @@
 from django.db import models
 
 from caristock.base import LENGTH_CODE, LENGTH_EXTRA, LENGTH_REGULAR, ProjectModel
+from django.utils.translation import gettext_lazy as _
 
 
 class DonorManager:
@@ -12,37 +13,49 @@ class Donor(ProjectModel):
     """Who is donating supplies"""
 
     name = models.CharField(
-        help_text="Nome e sobrenome ou Nome da empresa",
+        help_text=_("Donor's full name"),
         max_length=LENGTH_REGULAR,
+        verbose_name=_("Name"),
     )
     address_1 = models.CharField(
         blank=True,
-        help_text="Rua, número e complemento",
+        help_text=_("Street address, including number and any additional details"),
         max_length=LENGTH_EXTRA,
+        verbose_name=_("Address 1"),
     )
     address_2 = models.CharField(
         blank=True,
-        help_text="Bairro e cidade",
+        help_text=_("Neighborhood and city"),
         max_length=LENGTH_EXTRA,
+        verbose_name=_("Address 2"),
     )
 
     email = models.CharField(
         blank=True,
-        help_text="Email do doador",
+        help_text=_("Email address of the donor"),
         max_length=LENGTH_REGULAR,
         unique=True,
+        verbose_name=_("Email"),
     )
     document = models.CharField(
         blank=True,
-        help_text="CPF ou CNPJ do doador",
+        help_text=_("Donor's CPF or CNPJ"),
         max_length=LENGTH_CODE,
         unique=True,
+        verbose_name=_("Document"),
     )
 
     objects = DonorManager()
 
     def natural_key(self):
         return (self.name,)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("Donor")
+        verbose_name_plural = _("Donors")
 
 
 class BeneficiaryManager:
@@ -54,17 +67,30 @@ class Beneficiary(ProjectModel):
     """Who is receiving supplies"""
 
     name = models.CharField(
-        help_text="Nome e sobrenome",
+        help_text=_("Beneficiary's full name"),
         max_length=LENGTH_REGULAR,
+        verbose_name=_("Name"),
     )
     document = models.CharField(
-        help_text="CPF ou CNPJ do doador",
+        help_text=_("Beneficiary's CPF or CNPJ"),
         max_length=LENGTH_CODE,
         unique=True,
+        verbose_name=_("Document"),
     )
-    photo = models.ImageField()
+    photo = models.ImageField(
+        blank=True,
+        null=True,
+        verbose_name=_("Photo"),
+    )
 
     objects = BeneficiaryManager()
 
     def natural_key(self):
         return (self.name,)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("Beneficiary")
+        verbose_name_plural = _("Beneficiaries")

@@ -1,6 +1,7 @@
 from django.db import models
 
 from caristock.base import ProjectModel
+from django.utils.translation import gettext_lazy as _
 
 
 class DonationManager:
@@ -11,12 +12,17 @@ class DonationManager:
 class Donation(ProjectModel):
     donor = models.ForeignKey(
         "people.Donor",
-        help_text="Quem irá doar",
+        help_text=_("Who is donating"),
         on_delete=models.PROTECT,
+        verbose_name=_("Donor"),
     )
 
     def natural_key(self):
         return (self.donor.name,)
+
+    class Meta:
+        verbose_name = _("Donation")
+        verbose_name_plural = _("Donations")
 
 
 class DonationSupply(ProjectModel):
@@ -27,11 +33,13 @@ class DonationSupply(ProjectModel):
     supply = models.ForeignKey(
         "inventory.Supply",
         on_delete=models.PROTECT,
-        help_text="Item de doação a ser recebido",
+        help_text=_("Donated item to be received"),
+        verbose_name=_("Supply"),
     )
 
     quantity = models.IntegerField(
-        help_text="Quantidade a ser recebida do item de doação",
+        help_text=_("Quantity of donated item to be received"),
+        verbose_name=_("Quantity"),
     )
 
     class Meta:
@@ -46,12 +54,17 @@ class PickupManager:
 class Pickup(ProjectModel):
     beneficiary = models.ForeignKey(
         "people.Beneficiary",
-        help_text="Quem receberá a doação",
+        help_text=_("Donation recipient"),
         on_delete=models.PROTECT,
+        verbose_name=_("Beneficiary"),
     )
 
     def natural_key(self):
         return (self.beneficiary.name,)
+
+    class Meta:
+        verbose_name = _("Pickup")
+        verbose_name_plural = _("Pickups")
 
 
 class PickupSupply(ProjectModel):
@@ -61,12 +74,14 @@ class PickupSupply(ProjectModel):
     )
     supply = models.ForeignKey(
         "inventory.Supply",
-        help_text="Item de doação a ser entregue",
+        help_text=_("Donated item to be delivered"),
         on_delete=models.PROTECT,
+        verbose_name=_("Supply"),
     )
 
     quantity = models.IntegerField(
-        help_text="Quantidade a ser entregue do item de doação",
+        help_text=_("Quantity of donated item to be delivered"),
+        verbose_name=_("Quantity"),
     )
 
     class Meta:
