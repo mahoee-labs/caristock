@@ -20,6 +20,9 @@ class Donation(ProjectModel):
     def natural_key(self):
         return (self.donor.name,)
 
+    def __str__(self):
+        return f"{self.donor.name} #{self.id}"
+
     class Meta:
         verbose_name = _("Donation")
         verbose_name_plural = _("Donations")
@@ -43,6 +46,8 @@ class DonationSupply(ProjectModel):
     )
 
     class Meta:
+        verbose_name = _("Supply Donation")
+        verbose_name_plural = _("Supply Donations")
         unique_together = (("donation", "supply"),)
 
 
@@ -61,6 +66,9 @@ class Pickup(ProjectModel):
 
     def natural_key(self):
         return (self.beneficiary.name,)
+
+    def __str__(self):
+        return f"{self.beneficiary.name} #{self.id}"
 
     class Meta:
         verbose_name = _("Pickup")
@@ -84,5 +92,10 @@ class PickupSupply(ProjectModel):
         verbose_name=_("Quantity"),
     )
 
+    def __str__(self):
+        return self.supply.name
+
     class Meta:
+        verbose_name = _("Supply Pickup")
+        verbose_name_plural = _("Supply Pickups")
         unique_together = (("pickup", "supply"),)

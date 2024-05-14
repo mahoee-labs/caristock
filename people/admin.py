@@ -1,6 +1,17 @@
 from django.contrib import admin
 
 from people.models import Beneficiary, Donor
+from transactions.models import Donation, Pickup
+
+
+class PickupInline(admin.TabularInline):
+    model = Pickup
+    extra = 0
+
+
+class DonationInline(admin.TabularInline):
+    model = Donation
+    extra = 0
 
 
 @admin.register(Donor)
@@ -27,6 +38,8 @@ class DonorAdmin(admin.ModelAdmin):
         "document",
     ]
 
+    inlines = [DonationInline]
+
 
 @admin.register(Beneficiary)
 class BeneficiaryAdmin(admin.ModelAdmin):
@@ -46,3 +59,5 @@ class BeneficiaryAdmin(admin.ModelAdmin):
         "name",
         "document",
     ]
+
+    inlines = [PickupInline]
