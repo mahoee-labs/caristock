@@ -1,0 +1,21 @@
+{% load i18n %}
+<html>
+  <head>
+    <title>Caristock</title>
+  </head>
+  <body>
+    <h1>{% translate "Stock Overview" %}</h1>
+    <dl>
+        <dt>{% translate "Highest Count" %}: </dt><dl>{{ overview_highest_count }}
+        <dt>{% translate "Lowest Count" %}>: </dt><dl>{{ overview_lowest_count }}
+    </dl>
+    <h1>{% translate "Incoming Donations" %}</h1>
+    <ul>
+        {% for donation in incoming_donations %}
+        <li>{{ donation.donor.name }}: {{ donation.created }}</li>
+        {% empty %}
+        <li>{% translate "No donations yet" %}</li>
+        {% endfor %}
+    </ul>
+  </body>
+</html>
