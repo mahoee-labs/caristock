@@ -1,0 +1,90 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-15 14:55-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: transactions/models.py:15
+msgid "Who is donating"
+msgstr "Quem está doando"
+
+#: transactions/models.py:17
+msgid "Donor"
+msgstr "Doador"
+
+#: transactions/models.py:27
+msgid "Donation"
+msgstr "Doação"
+
+#: transactions/models.py:28
+msgid "Donations"
+msgstr "Doações"
+
+#: transactions/models.py:39
+msgid "Donated item to be received"
+msgstr "Item de doação a ser recebido"
+
+#: transactions/models.py:40 transactions/models.py:87
+msgid "Supply"
+msgstr "Suprimento"
+
+#: transactions/models.py:44
+msgid "Quantity of donated item to be received"
+msgstr "Quantidade de itens a serem recebidos"
+
+#: transactions/models.py:45 transactions/models.py:92
+msgid "Quantity"
+msgstr "Quantidade"
+
+#: transactions/models.py:49
+msgid "Donation Supply"
+msgstr "Suprimento da Doação"
+
+#: transactions/models.py:50
+msgid "Donation Supplies"
+msgstr "Suprimentos de Doação"
+
+#: transactions/models.py:62
+msgid "Donation recipient"
+msgstr "Recebedor da doação"
+
+#: transactions/models.py:64
+msgid "Beneficiary"
+msgstr "Beneficiário"
+
+#: transactions/models.py:74
+msgid "Pickup"
+msgstr "Retirada"
+
+#: transactions/models.py:75
+msgid "Pickups"
+msgstr "Retiradas"
+
+#: transactions/models.py:85
+msgid "Donated item to be delivered"
+msgstr "Item doado a ser entregue"
+
+#: transactions/models.py:91
+msgid "Quantity of donated item to be delivered"
+msgstr "Quantidade de itens a serem entregues"
+
+#: transactions/models.py:99
+msgid "Pickup Supply"
+msgstr "Suprimento da Retirada"
+
+#: transactions/models.py:100
+msgid "Pickup Supplies"
+msgstr "Suprimentos de Retirada"

@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-15 14:55-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: people/models.py:16
+msgid "Donor's full name"
+msgstr "Nome completo do doador"
+
+#: people/models.py:18 people/models.py:72
+msgid "Name"
+msgstr "Nome"
+
+#: people/models.py:22
+msgid "Street address, including number and any additional details"
+msgstr "Rua, número e complemento"
+
+#: people/models.py:24
+msgid "Address 1"
+msgstr "Endereço 1"
+
+#: people/models.py:28
+msgid "Neighborhood and city"
+msgstr "Bairro e cidade"
+
+#: people/models.py:30
+msgid "Address 2"
+msgstr "Endereço 2"
+
+#: people/models.py:35
+msgid "Email address of the donor"
+msgstr "Email do doador"
+
+#: people/models.py:38
+msgid "Email"
+msgstr "Email"
+
+#: people/models.py:42
+msgid "Donor's CPF or CNPJ"
+msgstr "CPF ou CNPJ do doador"
+
+#: people/models.py:45 people/models.py:78
+msgid "Document"
+msgstr "Documento"
+
+#: people/models.py:57
+msgid "Donor"
+msgstr "Doador"
+
+#: people/models.py:58
+msgid "Donors"
+msgstr "Doadores"
+
+#: people/models.py:70
+msgid "Beneficiary's full name"
+msgstr "Nome completo do beneficiário"
+
+#: people/models.py:75
+msgid "Beneficiary's CPF or CNPJ"
+msgstr "CPF ou CNPJ do beneficiário"
+
+#: people/models.py:83
+msgid "Photo"
+msgstr "Foto"
+
+#: people/models.py:95
+msgid "Beneficiary"
+msgstr "Beneficiário"
+
+#: people/models.py:96
+msgid "Beneficiaries"
+msgstr "Beneficiários"

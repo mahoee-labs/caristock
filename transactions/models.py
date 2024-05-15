@@ -46,8 +46,8 @@ class DonationSupply(ProjectModel):
     )
 
     class Meta:
-        verbose_name = _("Supply Donation")
-        verbose_name_plural = _("Supply Donations")
+        verbose_name = _("Donation Supply")
+        verbose_name_plural = _("Donation Supplies")
         unique_together = (("donation", "supply"),)
 
 
@@ -96,6 +96,6 @@ class PickupSupply(ProjectModel):
         return self.supply.name
 
     class Meta:
-        verbose_name = _("Supply Pickup")
-        verbose_name_plural = _("Supply Pickups")
+        verbose_name = _("Pickup Supply")
+        verbose_name_plural = _("Pickup Supplies")
         unique_together = (("pickup", "supply"),)
