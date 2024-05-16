@@ -18,8 +18,10 @@
   <div class="container">
     <h2 class="title">{% translate "Stock Overview" %}</h2>
     <ul class="block">
-      <li>{% translate "Highest Count" %}: {{ overview_highest_count }}</li>
-      <li>{% translate "Lowest Count" %}>: {{ overview_lowest_count }}</li>
+      <!-- prettier-ignore -->
+      <li><strong>{% translate "Highest Count" %}</strong>: {{ overview_highest_count }}</li>
+      <!-- prettier-ignore -->
+      <li><strong>{% translate "Lowest Count" %}</strong>: {{ overview_lowest_count }}</li>
     </ul>
     <p class="level is-mobile">
       <!-- prettier-ignore -->
@@ -34,13 +36,18 @@
 <section class="section">
   <div class="container">
     <h2 class="title">{% translate "Incoming Donations" %}</h2>
-    <ul>
-      {% for donation in incoming_donations %}
-      <li>{{ donation.donor.name }}: {{ donation.created }}</li>
-      {% empty %}
-      <li>{% translate "No donations yet" %}</li>
-      {% endfor %}
-    </ul>
+    {% for donation in incoming_donations %}
+    <div class="block">
+      <p>
+        <a href="{% url 'donation-build' donation.id %}">
+          <strong>{{ donation.donor.name }}</strong> #{{ donation.id }}
+        </a>
+      </p>
+      <p>{{ donation.created|timesince }} {% translate "ago" %}</p>
+    </div>
+    {% empty %}
+    <div class="block">{% translate "No donations yet" %}</div>
+    {% endfor %}
   </div>
 </section>
 
