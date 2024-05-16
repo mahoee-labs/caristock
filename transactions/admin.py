@@ -8,6 +8,7 @@ class DonationSupplyInline(admin.TabularInline):
     fields = [
         "supply",
         "quantity",
+        "stock_quantity",
     ]
 
 
