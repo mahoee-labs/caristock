@@ -41,16 +41,15 @@
       <p>{{ donor.address_2 }}</p>
     </div>
     <p class="level">
-      <a class="button" href="{{ next }}?donor={{ donor.id }}">
-        <span class="icon-text">
-          <span>{% translate "Select Donor" %}</span>
-          <span class="icon">
-            <svg class="feather">
-              <use href="{% static 'feather-sprite.svg' %}#chevrons-right" />
-            </svg>
-          </span>
-        </span>
-      </a>
+      <!-- prettier-ignore -->
+      {% url 'donor-show' donor.id as donor_link %}
+      {% if next %}
+        {% translate 'Select Donor' as label %}
+        {% include 'caristock/blocks/button.html' with label=label link=donor_link|add:'?n='|add:next icon='chevrons-right' %}
+      {% else %}
+        {% translate 'View Donor' as label %}
+        {% include 'caristock/blocks/button.html' with label=label link=donor_link %}
+      {% endif %}
     </p>
     <hr />
     {% endfor %}

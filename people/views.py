@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 
 from caristock.utils import get_param, get_param_int
@@ -9,8 +8,6 @@ from people.models import Donor
 def render_donor_select(request):
     query = request.GET.get("q")
     next = request.GET.get("n")
-    if not next:
-        messages.warning(request, "The 'next' argument is missing.")
     if query:
         found = list(Donor.objects.search(query))
         search_results = dict(
@@ -27,10 +24,9 @@ def render_donor_select(request):
     return render(request, "caristock/donor-select.html", context=context)
 
 
-def render_donor_show(request):
-    donor_id = get_param_int(request, "donor", 0)
-    next = get_param(request, "n")
+def render_donor_show(request, donor_id):
     donor = get_object_or_404(Donor, pk=donor_id)
+    next = get_param(request, "n")
     if request.method == "POST":
         form = DonorForm(request.POST)
     else:
@@ -43,10 +39,9 @@ def render_donor_show(request):
     return render(request, "caristock/donor-show.html", context=context)
 
 
-def render_donor_edit(request):
-    donor_id = get_param_int(request, "donor", 0)
-    next = get_param(request, "n")
+def render_donor_edit(request, donor_id):
     donor = get_object_or_404(Donor, pk=donor_id)
+    next = get_param(request, "n")
     if request.method == "POST":
         form = DonorForm(request.POST)
     else:

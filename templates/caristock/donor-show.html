@@ -16,7 +16,9 @@
       <div class="level is-mobile">
         <div class="level-left">
           <div class="level-item">
-            <a class="button" href="{% url 'donor-edit' %}?donor={{ donor.id }}"
+            <a
+              class="button"
+              href="{% url 'donor-edit' donor.id %}?donor={{ donor.id }}"
               >{% translate "Edit" %}</a
             >
           </div>

@@ -24,7 +24,7 @@ from people.views import render_donor_select, render_donor_edit, render_donor_sh
 urlpatterns = [
     path("", render_home),
     path("donor/select", render_donor_select, name="donor-select"),
-    path("donor/show", render_donor_show, name="donor-show"),
-    path("donor/edit", render_donor_edit, name="donor-edit"),
+    path("donor/<int:donor_id>/show", render_donor_show, name="donor-show"),
+    path("donor/<int:donor_id>/edit", render_donor_edit, name="donor-edit"),
     path("admin/", admin.site.urls),
 ]

@@ -1,0 +1,17 @@
+{% load static %} {% load i18n %}
+
+<!-- prettier-ignore -->
+{% if link %}
+<a class="button" href="{{ link }}">
+  {% if icon %}
+  <span class="icon-text">
+    <span>{% translate label %}</span>
+    {% include 'caristock/blocks/icon.html' with name=icon %}
+  </span>
+  {% else %}
+  <span>{% translate label %}</span>
+  {% endif %}
+</a>
+{% else %}
+<strong>[[ Not Implemented ]] {{ link }} {{icon}}</strong>
+{% endif %}
