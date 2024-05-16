@@ -1,0 +1,38 @@
+<!-- prettier-ignore -->
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Caristock</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'bulma.css' %}" />
+  </head>
+  <style>
+    .feather {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+  </style>
+  <body>
+    {% if messages %}
+    <section class="hero">
+      <div class="hero-body">
+        {% for message in messages %}
+        <div class="message is-{{ message.tags }}">
+          <div class="message-header">{{ message.tags|title }}</div>
+          <div class="message-body">{{ message }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %} {% block main %}{% endblock %}
+  </body>
+</html>

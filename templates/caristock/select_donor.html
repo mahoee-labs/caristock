@@ -1,0 +1,59 @@
+<!-- prettier-ignore -->
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block main %}
+
+<!-- Search Box -->
+<section class="section">
+  <div class="container">
+    <h2 class="title">{% translate "Select Donor" %}</h2>
+    <form method="GET">
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <input
+            class="input"
+            type="text"
+            name="q"
+            placeholder="{% translate 'Donor name...' %}"
+            value="{{ query }}"
+          />
+        </div>
+        <div class="control">
+          <button class="button is-info">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Search Results -->
+{% if search_results %}
+<section class="section">
+  <div class="container">
+    <h2 class="title is-4">{% translate "Search Results" %}</h2>
+    {% for donor in search_results.donors %}
+    <p class="block"><strong>{{ donor.name }}</strong></p>
+    <div class="block">
+      <p>{{ donor.email }}</p>
+      <p>{{ donor.address_1 }}</p>
+      <p>{{ donor.address_2 }}</p>
+    </div>
+    <p class="level">
+      <a class="button" href="{{ next }}?donor={{ donor.id }}">
+        <span class="icon-text">
+          <span>{% translate "Select Donor" %}</span>
+          <span class="icon">
+            <svg class="feather">
+              <use href="{% static 'feather-sprite.svg' %}#chevrons-right" />
+            </svg>
+          </span>
+        </span>
+      </a>
+    </p>
+    <hr />
+    {% endfor %}
+  </div>
+</section>
+{% endif %} {% endblock %}

@@ -1,41 +1,36 @@
-{% load i18n %} {% load static %}
+<!-- prettier-ignore -->
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Caristock</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'bulma.css' %}" />
-  </head>
-  <body>
-    <section class="hero is-primary">
-      <div class="hero-body">
-        <p class="title">Caristock</p>
-        <p class="subtitle">
-          {% translate "Stock management for donations and pickups" %}
-        </p>
-      </div>
-    </section>
-    <section class="section">
-      <div class="container">
-        <h2 class="title">{% translate "Stock Overview" %}</h2>
-        <ul>
-          <li>{% translate "Highest Count" %}: {{ overview_highest_count }}</li>
-          <li>{% translate "Lowest Count" %}>: {{ overview_lowest_count }}</li>
-        </ul>
-      </div>
-    </section>
-    <section class="section">
-      <div class="container">
-        <h2 class="title">{% translate "Incoming Donations" %}</h2>
-        <ul>
-          {% for donation in incoming_donations %}
-          <li>{{ donation.donor.name }}: {{ donation.created }}</li>
-          {% empty %}
-          <li>{% translate "No donations yet" %}</li>
-          {% endfor %}
-        </ul>
-      </div>
-    </section>
-  </body>
-</html>
+{% block main %}
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">Caristock</p>
+    <p class="subtitle">
+      {% translate "Stock management for donations and pickups" %}
+    </p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <h2 class="title">{% translate "Stock Overview" %}</h2>
+    <ul>
+      <li>{% translate "Highest Count" %}: {{ overview_highest_count }}</li>
+      <li>{% translate "Lowest Count" %}>: {{ overview_lowest_count }}</li>
+    </ul>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <h2 class="title">{% translate "Incoming Donations" %}</h2>
+    <ul>
+      {% for donation in incoming_donations %}
+      <li>{{ donation.donor.name }}: {{ donation.created }}</li>
+      {% empty %}
+      <li>{% translate "No donations yet" %}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}
