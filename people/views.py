@@ -6,16 +6,13 @@ from people.models import Donor
 
 
 def render_donor_select(request):
-    query = request.GET.get("q")
+    query = request.GET.get("q", "")
     next = request.GET.get("n")
-    if query:
-        found = list(Donor.objects.search(query))
-        search_results = dict(
-            count=len(found),
-            donors=found,
-        )
-    else:
-        search_results = None
+    found = list(Donor.objects.search(query))
+    search_results = dict(
+        count=len(found),
+        donors=found,
+    )
     context = dict(
         query=query,
         next=next,

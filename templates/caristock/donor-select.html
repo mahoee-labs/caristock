@@ -10,20 +10,10 @@
   <div class="container">
     <h2 class="title">{% translate "Select Donor" %}</h2>
     <form method="GET">
-      <div class="field has-addons">
-        <div class="control is-expanded">
-          <input
-            class="input"
-            type="text"
-            name="q"
-            placeholder="{% translate 'Donor name...' %}"
-            value="{{ query }}"
-          />
-        </div>
-        <div class="control">
-          <button class="button is-info">Search</button>
-        </div>
-      </div>
+      <input type="hidden" name="n" value="{{ next }}" />
+      <!-- prettier-ignore -->
+      {% translate 'Donor name...' as placeholder %}
+      {% include 'caristock/blocks/search.html' with placeholder=placeholder name='q' value=query %}
     </form>
   </div>
 </section>
@@ -40,7 +30,7 @@
       <p>{{ donor.address_1 }}</p>
       <p>{{ donor.address_2 }}</p>
     </div>
-    <p class="level">
+    <p class="level is-mobile">
       <!-- prettier-ignore -->
       {% url 'donor-show' donor.id as donor_link %}
       {% if next %}

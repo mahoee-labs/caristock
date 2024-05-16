@@ -4,6 +4,7 @@
 {% load static %}
 
 {% block main %}
+
 <section class="hero is-primary">
   <div class="hero-body">
     <p class="title">Caristock</p>
@@ -12,15 +13,24 @@
     </p>
   </div>
 </section>
+
 <section class="section">
   <div class="container">
     <h2 class="title">{% translate "Stock Overview" %}</h2>
-    <ul>
+    <ul class="block">
       <li>{% translate "Highest Count" %}: {{ overview_highest_count }}</li>
       <li>{% translate "Lowest Count" %}>: {{ overview_lowest_count }}</li>
     </ul>
+    <p class="level is-mobile">
+      <!-- prettier-ignore -->
+      {% url 'donor-select' as donor_select_link %}
+      {% url 'donation-create' as donor_create_link %}
+      {% translate 'Create New Donation' as label %}
+      {% include 'caristock/blocks/button.html' with label=label link=donor_select_link|add:'?n='|add:donor_create_link icon='plus' class='is-link' %}
+    </p>
   </div>
 </section>
+
 <section class="section">
   <div class="container">
     <h2 class="title">{% translate "Incoming Donations" %}</h2>
@@ -33,4 +43,5 @@
     </ul>
   </div>
 </section>
+
 {% endblock %}

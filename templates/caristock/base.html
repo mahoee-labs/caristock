@@ -1,6 +1,7 @@
 <!-- prettier-ignore -->
 {% load i18n %}
 {% load static %}
+{% load caristock %}
 
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@
     <section class="hero">
       <div class="hero-body">
         {% for message in messages %}
-        <div class="message is-{{ message.tags }}">
+        <div class="message {{ message.tags|message_class }}">
           <div class="message-header">{{ message.tags|title }}</div>
           <div class="message-body">{{ message }}</div>
         </div>

@@ -7,9 +7,12 @@ from django.utils.translation import gettext_lazy as _
 class DonorManager(models.Manager):
 
     def search(self, query):
-        name_matches = models.Q(name__contains=query)
-        document_matches = models.Q(document__contains=query)
-        return self.filter(name_matches | document_matches)
+        if query:
+            name_matches = models.Q(name__contains=query)
+            document_matches = models.Q(document__contains=query)
+            return self.filter(name_matches | document_matches)
+        else:
+            return self.all()[:20]
 
     def get_by_natural_key(self, name):
         return self.get(name=name)

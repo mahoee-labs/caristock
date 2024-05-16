@@ -26,9 +26,10 @@
         <div class="level-right">
           {% if next %}
           <div class="level-item">
-            <a class="button is-primary" href="{{ next }}"
-              >{% translate "Continue" %}</a
-            >
+            <!-- prettier-ignore -->
+            <a class="button is-primary" href="{{ next }}?donor={{ donor.id }}">
+              {% translate "Continue" %}
+            </a>
           </div>
           {% endif %}
         </div>

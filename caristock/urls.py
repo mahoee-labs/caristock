@@ -20,11 +20,17 @@ from django.urls import path
 
 from caristock.views import render_home
 from people.views import render_donor_select, render_donor_edit, render_donor_show
+from transactions.views import render_donation_build, render_donation_create
+
 
 urlpatterns = [
     path("", render_home),
     path("donor/select", render_donor_select, name="donor-select"),
     path("donor/<int:donor_id>/show", render_donor_show, name="donor-show"),
     path("donor/<int:donor_id>/edit", render_donor_edit, name="donor-edit"),
+    path("donation/create", render_donation_create, name="donation-create"),
+    path(
+        "donation/<int:donation_id>/build", render_donation_build, name="donation-build"
+    ),
     path("admin/", admin.site.urls),
 ]

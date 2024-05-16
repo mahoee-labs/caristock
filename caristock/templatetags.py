@@ -20,3 +20,8 @@ def add_form_bulma_classes(html_content):
         '<span class="helptext', '<span class="helptext help'
     )
     return mark_safe(html_content)
+
+
+@register.filter
+def message_class(message_tags):
+    return "is-" + message_tags.replace("error", "danger")

@@ -1,0 +1,22 @@
+<!-- prettier-ignore -->
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load caristock %}
+
+{% block main %}
+
+<!-- Donor Information -->
+<section class="section">
+  <div class="container">
+    <h2 class="title">{{ donation.donor.name }} #{{ donation.id }}</h2>
+    <p class="subtitle">{% translate "Build donation" %}</p>
+    <form method="GET">
+      <!-- prettier-ignore -->
+      {% translate 'Supply...' as placeholder %}
+      {% include 'caristock/blocks/search.html' with placeholder=placeholder name='q' value=query %}
+    </form>
+  </div>
+</section>
+
+{% endblock %}
