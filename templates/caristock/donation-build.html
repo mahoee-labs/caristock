@@ -6,16 +6,46 @@
 
 {% block main %}
 
-<!-- Donor Information -->
+<!-- Donation Head -->
 <section class="section">
   <div class="container">
     <h2 class="title">{{ donation.donor.name }} #{{ donation.id }}</h2>
     <p class="subtitle">{% translate "Build donation" %}</p>
     <form method="GET">
+      <p class="label">
+        {% translate "Search for items to add to this donation" %}
+      </p>
       <!-- prettier-ignore -->
       {% translate 'Supply...' as placeholder %}
       {% include 'caristock/blocks/search.html' with placeholder=placeholder name='q' value=query %}
     </form>
+  </div>
+</section>
+
+<!-- Supplies -->
+<section class="section">
+  <div class="container">
+    <h2 class="title is-4">{% translate "Supplies" %}</h2>
+    <table class="table is-fullwidth is-hoverable">
+      <thead>
+        <tr>
+          <th class="is-expanded">{% translate "Name" %}</th>
+          <th>{% translate "Quantity" %}</th>
+          <th>{% translate "Actions" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Colchão</td>
+          <td>2</td>
+          <td>
+            <!-- prettier-ignore -->
+            {% include 'caristock/blocks/button.html' with label='Remover' link='...' %}
+            {% include 'caristock/blocks/button.html' with label='Atualizar' link='...' %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
