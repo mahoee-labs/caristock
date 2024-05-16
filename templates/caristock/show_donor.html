@@ -1,0 +1,21 @@
+<!-- prettier-ignore -->
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load caristock %}
+
+{% block main %}
+
+<!-- Donor Information -->
+<section class="section">
+  <div class="container">
+    <h2 class="title">{{ donor.name }}</h2>
+    <p class="subtitle">{% translate "Donor" %}</p>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p|add_form_bulma_classes }}
+      <button type="submit" class="button is-primary">Submit</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}
