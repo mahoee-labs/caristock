@@ -10,7 +10,7 @@
 <section class="section">
   <div class="container">
     <h2 class="title">{{ donor.name }}</h2>
-    <p class="subtitle">{% translate "Donor" %}</p>
+    <p class="subtitle">{% translate "Edit Donor" %}</p>
     <form method="post">
       {% csrf_token %} {{ form.as_p|add_form_bulma_classes }}
       <button type="submit" class="button is-primary">Submit</button>

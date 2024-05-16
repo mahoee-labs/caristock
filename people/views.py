@@ -6,7 +6,7 @@ from people.forms import DonorForm
 from people.models import Donor
 
 
-def render_select_donor(request):
+def render_donor_select(request):
     query = request.GET.get("q")
     next = request.GET.get("n")
     if not next:
@@ -24,10 +24,10 @@ def render_select_donor(request):
         next=next,
         search_results=search_results,
     )
-    return render(request, "caristock/select_donor.html", context=context)
+    return render(request, "caristock/donor-select.html", context=context)
 
 
-def render_show_donor(request):
+def render_donor_show(request):
     donor_id = get_param_int(request, "donor", 0)
     next = get_param(request, "n")
     donor = get_object_or_404(Donor, pk=donor_id)
@@ -40,4 +40,20 @@ def render_show_donor(request):
         form=form,
         donor=donor,
     )
-    return render(request, "caristock/show_donor.html", context=context)
+    return render(request, "caristock/donor-show.html", context=context)
+
+
+def render_donor_edit(request):
+    donor_id = get_param_int(request, "donor", 0)
+    next = get_param(request, "n")
+    donor = get_object_or_404(Donor, pk=donor_id)
+    if request.method == "POST":
+        form = DonorForm(request.POST)
+    else:
+        form = DonorForm(instance=donor)
+    context = dict(
+        next=next,
+        form=form,
+        donor=donor,
+    )
+    return render(request, "caristock/donor-edit.html", context=context)

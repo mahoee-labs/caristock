@@ -19,11 +19,12 @@ from django.contrib import admin
 from django.urls import path
 
 from caristock.views import render_home
-from people.views import render_select_donor, render_show_donor
+from people.views import render_donor_select, render_donor_edit, render_donor_show
 
 urlpatterns = [
     path("", render_home),
-    path("select-donor", render_select_donor, name="select-donor"),
-    path("show-donor", render_show_donor, name="show-donor"),
+    path("donor/select", render_donor_select, name="donor-select"),
+    path("donor/show", render_donor_show, name="donor-show"),
+    path("donor/edit", render_donor_edit, name="donor-edit"),
     path("admin/", admin.site.urls),
 ]

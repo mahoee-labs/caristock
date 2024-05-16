@@ -5,6 +5,13 @@ register = template.Library()
 
 
 @register.filter
+def disabled_form(form):
+    for field in form:
+        field.field.widget.attrs["disabled"] = True
+    return form.as_p()
+
+
+@register.filter
 def add_form_bulma_classes(html_content):
     html_content = html_content.replace("<p>", '<p class="block">')
     html_content = html_content.replace("<label", '<label class="label"')
