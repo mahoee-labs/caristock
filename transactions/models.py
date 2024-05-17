@@ -1,11 +1,32 @@
 from django.db import models
 
-from django.db.models.signals import post_save, pre_save, pre_delete
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from caristock.base import LENGTH_CODE, ProjectModel
 from django.utils.translation import gettext_lazy as _
 
 from inventory.models import Stock
+
+
+class StockSupply(ProjectModel):
+    quantity = models.IntegerField(
+        help_text=_("Quantity of donated item to be received"),
+        verbose_name=_("Quantity"),
+    )
+
+    stock_quantity = models.IntegerField(
+        default=0,
+        # editable=False,
+    )
+
+    def update_stock(self):
+        raise NotImplementedError()
+
+    def clear_stock(self):
+        raise NotImplementedError()
+
+    class Meta:
+        abstract = True
 
 
 class DonationManager:
@@ -49,7 +70,7 @@ def update_stock_after_donation(sender, instance, **kwargs):
         current.save()
 
 
-class DonationSupply(ProjectModel):
+class DonationSupply(StockSupply):
     donation = models.ForeignKey(
         "Donation",
         on_delete=models.CASCADE,
@@ -59,16 +80,6 @@ class DonationSupply(ProjectModel):
         on_delete=models.CASCADE,
         help_text=_("Donated item to be received"),
         verbose_name=_("Supply"),
-    )
-
-    quantity = models.IntegerField(
-        help_text=_("Quantity of donated item to be received"),
-        verbose_name=_("Quantity"),
-    )
-
-    stock_quantity = models.IntegerField(
-        default=0,
-        # editable=False,
     )
 
     class Meta:
@@ -131,7 +142,7 @@ class Pickup(ProjectModel):
         verbose_name_plural = _("Pickups")
 
 
-class PickupSupply(ProjectModel):
+class PickupSupply(StockSupply):
     pickup = models.ForeignKey(
         "Pickup",
         on_delete=models.PROTECT,
@@ -143,11 +154,6 @@ class PickupSupply(ProjectModel):
         verbose_name=_("Supply"),
     )
 
-    quantity = models.IntegerField(
-        help_text=_("Quantity of donated item to be delivered"),
-        verbose_name=_("Quantity"),
-    )
-
     def __str__(self):
         return self.supply.name
 
@@ -155,3 +161,30 @@ class PickupSupply(ProjectModel):
         verbose_name = _("Pickup Supply")
         verbose_name_plural = _("Pickup Supplies")
         unique_together = (("pickup", "supply"),)
+
+    def update_stock(self):
+        delta = self.stock_quantity - self.quantity
+        if delta:
+            stock = Stock.objects.get(supply=self.supply)
+            stock.quantity += delta
+            stock.save()
+            self.stock_quantity = self.quantity
+            self.save()
+
+    def clear_stock(self):
+        if self.stock_quantity:
+            stock = Stock.objects.get(supply=self.supply)
+            stock.quantity += self.stock_quantity
+            stock.save()
+            self.stock_quantity = 0
+            self.save()
+
+
+@receiver(post_save, sender=PickupSupply)
+def update_stock_after_pickupsupply(sender, instance, **kwargs):
+    instance.update_stock()
+
+
+@receiver(pre_delete, sender=PickupSupply)
+def clear_stock_after_pickupsupply(sender, instance, **kwargs):
+    instance.clear_stock()
