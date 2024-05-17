@@ -1,41 +1,42 @@
-<!-- prettier-ignore -->
 {% extends "caristock/base.html" %}
 {% load i18n %}
 {% load static %}
 {% load caristock %}
-
+{% block hero %}
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">{{ donor.name }}</p>
+      <p class="subtitle">{% translate "View Donor" %}</p>
+    </div>
+  </section>
+{% endblock hero %}
 {% block main %}
-
-<!-- Donor Information -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ donor.name }}</h2>
-    <p class="subtitle">{% translate "Donor" %}</p>
-    <form method="post">
-      {% csrf_token %} {{ form|disabled_form|add_form_bulma_classes }}
-      <div class="level is-mobile">
-        <div class="level-left">
-          <div class="level-item">
-            <a
-              class="button"
-              href="{% url 'donor-edit' donor.id %}?donor={{ donor.id }}"
-              >{% translate "Edit" %}</a
-            >
+  <section class="section">
+    <div class="container">
+      {% if next %}
+        <h2 class="title">{% translate "Confirm Donor" %}</h2>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form|disabled_form|add_form_bulma_classes }}
+        <div class="level is-mobile">
+          <div class="level-left">
+            <div class="level-item">
+              {% url 'donor-edit' donor.id as edit %}
+              {% translate "Edit" as label %}
+              {% include "caristock/blocks/button.html" with link=edit|qkey:"donor"|qval:donor.id label=label %}
+            </div>
+          </div>
+          <div class="level-right">
+            {% if next %}
+              <div class="level-item">
+                {% translate "Continue" as label %}
+                {% include "caristock/blocks/button.html" with link=next|qkey:"donor"|qval:donor.id label=label class="is-primary" icon="chevrons-right" %}
+              </div>
+            {% endif %}
           </div>
         </div>
-        <div class="level-right">
-          {% if next %}
-          <div class="level-item">
-            <!-- prettier-ignore -->
-            <a class="button is-primary" href="{{ next }}?donor={{ donor.id }}">
-              {% translate "Continue" %}
-            </a>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-    </form>
-  </div>
-</section>
-
-{% endblock %}
+      </form>
+    </div>
+  </section>
+{% endblock main %}

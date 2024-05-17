@@ -1,48 +1,57 @@
-<!-- prettier-ignore -->
 {% extends "caristock/base.html" %}
 {% load i18n %}
 {% load static %}
-
-{% block main %}
-
-<!-- Search Box -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{% translate "Select Donor" %}</h2>
-    <form method="GET">
-      <input type="hidden" name="n" value="{{ next }}" />
-      <!-- prettier-ignore -->
-      {% translate 'Donor name...' as placeholder %}
-      {% include 'caristock/blocks/search.html' with placeholder=placeholder name='q' value=query %}
-    </form>
-  </div>
-</section>
-
-<!-- Search Results -->
-{% if search_results %}
-<section class="section">
-  <div class="container">
-    <h2 class="title is-4">{% translate "Search Results" %}</h2>
-    {% for donor in search_results.donors %}
-    <p class="block"><strong>{{ donor.name }}</strong></p>
-    <div class="block">
-      <p>{{ donor.email }}</p>
-      <p>{{ donor.address_1 }}</p>
-      <p>{{ donor.address_2 }}</p>
+{% load caristock %}
+{% block hero %}
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">{% translate "List Donors" %}</p>
+      <p class="subtitle">{% translate "View all existing donors" %}</p>
     </div>
-    <p class="level is-mobile">
-      <!-- prettier-ignore -->
-      {% url 'donor-show' donor.id as donor_link %}
+  </section>
+{% endblock hero %}
+{% block main %}
+  <!-- Search Box -->
+  <section class="section">
+    <div class="container">
       {% if next %}
-        {% translate 'Select Donor' as label %}
-        {% include 'caristock/blocks/button.html' with label=label link=donor_link|add:'?n='|add:next icon='chevrons-right' %}
-      {% else %}
-        {% translate 'View Donor' as label %}
-        {% include 'caristock/blocks/button.html' with label=label link=donor_link %}
+        <h2 class="title">{% translate "Select Donor" %}</h2>
       {% endif %}
-    </p>
-    <hr />
-    {% endfor %}
-  </div>
-</section>
-{% endif %} {% endblock %}
+      <form method="get">
+        <input type="hidden" name="n" value="{{ next }}" />
+        <p class="label">{% translate "Search for existing donors" %}</p>
+        {% translate "Donor name..." as placeholder %}
+        {% include "caristock/blocks/search.html" with placeholder=placeholder name="q" value=query %}
+      </form>
+    </div>
+  </section>
+  <!-- Search Results -->
+  {% if search_results %}
+    <section class="section">
+      <div class="container">
+        <h2 class="title is-4">{% translate "Search Results" %}</h2>
+        {% for donor in search_results.donors %}
+          <p class="block">
+            <strong>{{ donor.name }}</strong>
+          </p>
+          <div class="block">
+            <p>{{ donor.email }}</p>
+            <p>{{ donor.address_1 }}</p>
+            <p>{{ donor.address_2 }}</p>
+          </div>
+          <p class="level is-mobile">
+            {% url 'donor-show' donor.id as donor_link %}
+            {% if next %}
+              {% translate "Select Donor" as label %}
+              {% include "caristock/blocks/button.html" with label=label link=donor_link|qkey:"n"|qval:next icon="chevrons-right" %}
+            {% else %}
+              {% translate "View Donor" as label %}
+              {% include "caristock/blocks/button.html" with label=label link=donor_link %}
+            {% endif %}
+          </p>
+          <hr />
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+{% endblock main %}
