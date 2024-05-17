@@ -1,8 +1,6 @@
-<!-- prettier-ignore -->
 {% load i18n %}
 {% load static %}
 {% load caristock %}
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -21,19 +19,28 @@
       stroke-linejoin: round;
       fill: none;
     }
+    .has-text-nowrap {
+      text-wrap: nowrap !important;
+    }
   </style>
   <body>
+    {% if not next %}
+      {% block hero %}
+      {% endblock hero %}
+    {% endif %}
     {% if messages %}
-    <section class="hero">
-      <div class="hero-body">
-        {% for message in messages %}
-        <div class="message {{ message.tags|message_class }}">
-          <div class="message-header">{{ message.tags|title }}</div>
-          <div class="message-body">{{ message }}</div>
+      <section class="hero">
+        <div class="hero-body">
+          {% for message in messages %}
+            <div class="message {{ message.tags|message_class }}">
+              <div class="message-header">{{ message.tags|title }}</div>
+              <div class="message-body">{{ message }}</div>
+            </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %} {% block main %}{% endblock %}
+      </section>
+    {% endif %}
+    {% block main %}
+    {% endblock main %}
   </body>
 </html>

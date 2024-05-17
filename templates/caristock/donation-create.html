@@ -1,46 +1,39 @@
-<!-- prettier-ignore -->
 {% extends "caristock/base.html" %}
 {% load i18n %}
 {% load static %}
 {% load caristock %}
-
 {% block main %}
-
-<section class="section">
-  <div class="container">
-    <h2 class="title">{% translate "Creating Donation" %}</h2>
-    <p class="subtitle">{% translate "Add items to it next" %}</p>
-    {% if donation %}
-    <div class="message is-success">
-      <p class="message-body">
-        <!-- prettier-ignore -->
-        {% blocktranslate with donor_name=donor.name %}
-        We created a new donation for {{ donor_name }}!
-        {% endblocktranslate %}
-      </p>
+  <section class="section">
+    <div class="container">
+      <h2 class="title">{% translate "Creating Donation" %}</h2>
+      <p class="subtitle">{% translate "Add items to it next" %}</p>
+      {% if donation %}
+        <div class="message is-success">
+          <p class="message-body">
+            {% blocktranslate with donor_name=donor.name %}
+            We created a new donation for {{ donor_name }}!
+            {% endblocktranslate %}
+          </p>
+        </div>
+        <p class="block">
+          {% blocktranslate %}
+          Redirecting you to let you add items to the new donation...
+          {% endblocktranslate %}
+        </p>
+        <script>
+          setTimeout(function () {
+            window.location.href = "{% url 'donation-build' donation.id %}";
+          }, 3000);
+        </script>
+      {% else %}
+        <div class="message is-warning">
+          <p class="message-body">
+            {% blocktranslate %}
+            A new donation could not be created!
+            {% endblocktranslate %}
+          </p>
+        </div>
+      {% endif %}
     </div>
-    <p class="block">
-      <!-- prettier-ignore -->
-      {% blocktranslate %}
-      Redirecting you to let you add items to the new donation...
-      {% endblocktranslate %}
-    </p>
-    <script>
-      setTimeout(function () {
-        window.location.href = "{% url 'donation-build' donation.id %}";
-      }, 3000);
-    </script>
-    {% else %}
-    <div class="message is-warning">
-      <p class="message-body">
-        <!-- prettier-ignore -->
-        {% blocktranslate %}
-        A new donation could not be created!
-        {% endblocktranslate %}
-      </p>
-    </div>
-    {% endif %}
-  </div>
-</section>
-
-{% endblock %}
+  </section>
+{% endblock main %}

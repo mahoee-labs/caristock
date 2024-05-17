@@ -1,21 +1,24 @@
-<!-- prettier-ignore -->
 {% extends "caristock/base.html" %}
 {% load i18n %}
 {% load static %}
 {% load caristock %}
-
+{% block hero %}
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">{{ donor.name }}</p>
+      <p class="subtitle">{% translate "Edit Donor" %}</p>
+    </div>
+  </section>
+{% endblock hero %}
 {% block main %}
-
-<!-- Donor Information -->
-<section class="section">
-  <div class="container">
-    <h2 class="title">{{ donor.name }}</h2>
-    <p class="subtitle">{% translate "Edit Donor" %}</p>
-    <form method="post">
-      {% csrf_token %} {{ form.as_p|add_form_bulma_classes }}
-      <button type="submit" class="button is-primary">Submit</button>
-    </form>
-  </div>
-</section>
-
-{% endblock %}
+  <!-- Donor Information -->
+  <section class="section">
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p|add_form_bulma_classes }}
+        <button type="submit" class="button is-primary">Submit</button>
+      </form>
+    </div>
+  </section>
+{% endblock main %}
