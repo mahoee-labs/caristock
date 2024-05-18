@@ -1,0 +1,35 @@
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load caristock %}
+{% block hero %}
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">{{ donationsupply.supply.name }}</p>
+      <p class="subtitle">
+        {% blocktranslate with donation_id=donationsupply.donation.id donor_name=donationsupply.donation.donor.name %}
+        Supply for donation #{{ donation_id }} in name of {{ donor_name }}
+        {% endblocktranslate %}
+      </p>
+    </div>
+  </section>
+{% endblock hero %}
+{% block main %}
+  <section class="section">
+    {% if next %}
+      <h2 class="title">{% translate "Donation Supply" %}</h2>
+      <p class="subtitle">
+        {% blocktranslate with donation_id=donationsupply.donation.id donor_name=donationsupply.donation.donor.name %}
+        Change supply for donation #{{ donation_id }} in name of {{ donor_name }}
+        {% endblocktranslate %}
+      </p>
+    {% endif %}
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p|add_form_bulma_classes }}
+        <button type="submit" class="button is-primary">Submit</button>
+      </form>
+    </div>
+  </section>
+{% endblock main %}

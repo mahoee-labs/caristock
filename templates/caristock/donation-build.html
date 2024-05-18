@@ -2,67 +2,82 @@
 {% load i18n %}
 {% load static %}
 {% load caristock %}
-{% block main %}
-  <!-- Donation Head -->
+{% block hero %}
   <section class="hero is-primary">
     <div class="hero-body">
       <p class="title">{{ donation.donor.name }} #{{ donation.id }}</p>
       <p class="subtitle">{% translate "Receiving Donation" %}</p>
     </div>
   </section>
+{% endblock hero %}
+{% block main %}
+  <!-- Donation Head -->
   <section class="section">
-    <form method="get">
-      <p class="label">{% translate "Search for items to add to this donation" %}</p>
-      {% translate "Supply..." as placeholder %}
-      {% include "caristock/blocks/search.html" with placeholder=placeholder name="q" value=query %}
-    </form>
-  </div>
-</section>
-<!-- Supplies -->
-<section class="section">
-  <div class="container">
-    <h2 class="title is-4">{% translate "Supplies" %}</h2>
-    <table class="table is-fullwidth is-hoverable">
-      <colgroup>
-        <col style="width: 60%" />
-        <col />
-        <col />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>{% translate "Name" %}</th>
-          <th>{% translate "Quantity" %}</th>
-          <th class="has-text-right">{% translate "Actions" %}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Colchão</td>
-          <td>2</td>
-          <td class="has-text-right has-text-nowrap">
-            {% include "caristock/blocks/button.html" with link="..." icon="trash" %}
-            {% include "caristock/blocks/button.html" with link="..." icon="edit-2" %}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-<!-- Actions -->
-<section class="section">
-  <div class="container">
-    <div class="level is-mobile">
-      <div class="level-left">
-        <div class="level-item">
-          {% include "caristock/blocks/button.html" with label="Descartar" link="..." class="is-danger" %}
+    <div class="container">
+      {% url 'donation-build' donation.id as build_url %}
+      {% url 'donationsupply-create' as create_url %}
+      <form method="get" action="{% url 'supply-select' %}">
+        <input type="hidden"
+               name="n"
+               value="{{ create_url }}?donation={{ donation.id }}&n={{ build_url }}" />
+        <p class="label">{% translate "Search for items to add to this donation" %}</p>
+        {% translate "Supply..." as placeholder %}
+        {% include "caristock/blocks/search.html" with placeholder=placeholder name="q" value=query %}
+      </form>
+    </div>
+  </section>
+  <!-- Supplies -->
+  <section class="section">
+    <div class="container">
+      <h2 class="title is-4">{% translate "Supplies" %}</h2>
+      <table class="table is-fullwidth is-hoverable">
+        <colgroup>
+          {# djlint:off #}
+          <col style="width: 60%" />
+          {# djlint:on #}
+          <col />
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>{% translate "Name" %}</th>
+            <th>{% translate "Quantity" %}</th>
+            <th class="has-text-right">{% translate "Actions" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for current in donation.donationsupply_set.all %}
+            <tr>
+              <td>{{ current.supply.name }}</td>
+              <td>{{ current.quantity }}</td>
+              <td class="has-text-right has-text-nowrap">
+                {% url 'donation-build' donation.id as build_url %}
+                {% url 'donationsupply-edit' current.id as edit_url %}
+                {% url 'donationsupply-delete' current.id as delete_url %}
+                {% include "caristock/blocks/button.html" with link=delete_url|qkey:"n"|qval:build_url icon="trash" %}
+                {% include "caristock/blocks/button.html" with link=edit_url|qkey:"n"|qval:build_url icon="edit-2" %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <!-- Actions -->
+  <section class="section">
+    <div class="container">
+      <div class="level is-mobile">
+        <div class="level-left">
+          <div class="level-item">
+            {% include "caristock/blocks/button.html" with label="Descartar" link="..." class="is-danger" %}
+          </div>
         </div>
-      </div>
-      <div class="level-right">
-        <div class="level-item">
-          {% include "caristock/blocks/button.html" with label="Concluir" link="..." class="is-primary" %}
+        <div class="level-right">
+          <div class="level-item">
+            {% include "caristock/blocks/button.html" with label="Concluir" link="..." class="is-primary" %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 {% endblock main %}

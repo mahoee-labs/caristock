@@ -3,7 +3,14 @@ from caristock.base import LENGTH_REGULAR, ProjectModel
 from django.utils.translation import gettext_lazy as _
 
 
-class SupplyManager:
+class SupplyManager(models.Manager):
+    def search(self, query):
+        if query:
+            name_matches = models.Q(name__icontains=query)
+            return self.filter(name_matches)
+        else:
+            return self.all()[:20]
+
     def get_by_natural_key(self, name):
         return self.get(name=name)
 

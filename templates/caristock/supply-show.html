@@ -1,0 +1,32 @@
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load caristock %}
+{% block hero %}
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">{{ supply.name }}</p>
+      <p class="subtitle">{% translate "View Supply" %}</p>
+    </div>
+  </section>
+{% endblock hero %}
+{% block main %}
+  <section class="section">
+    <div class="container block">
+      {% if next %}
+        <h2 class="title">{% translate "Confirm Supply" %}</h2>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form|disabled_form|add_form_bulma_classes }}
+      </form>
+    </div>
+    <div class="container block">
+      <form method="get" action="{{ next }}">
+        {{ extra_form|add_form_bulma_classes }}
+        <input type="hidden" name="s" value="{{ supply.id }}" />
+        <button type="submit" class="button is-primary">Confirm</button>
+      </form>
+    </div>
+  </section>
+{% endblock main %}

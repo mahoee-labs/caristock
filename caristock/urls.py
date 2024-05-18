@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from caristock.views import render_home
+from inventory.views import render_supply_select, render_supply_show
 from people.views import (
     render_beneficiary_edit,
     render_beneficiary_select,
@@ -32,6 +33,9 @@ from people.views import (
 from transactions.views import (
     render_donation_build,
     render_donation_create,
+    render_donationsupply_create,
+    render_donationsupply_edit,
+    render_donationsupply_delete,
     render_pickup_create,
 )
 
@@ -52,11 +56,28 @@ urlpatterns = [
         render_beneficiary_edit,
         name="beneficiary-edit",
     ),
+    path("supply/select", render_supply_select, name="supply-select"),
+    path("supply/<int:supply_id>/show", render_supply_show, name="supply-show"),
     path("donation/create", render_donation_create, name="donation-create"),
     path(
         "donation/<int:donation_id>/build", render_donation_build, name="donation-build"
     ),
     path("pickup/create", render_pickup_create, name="pickup-create"),
+    path(
+        "donationsupply/create",
+        render_donationsupply_create,
+        name="donationsupply-create",
+    ),
+    path(
+        "donationsupply/<int:donationsupply_id>/edit",
+        render_donationsupply_edit,
+        name="donationsupply-edit",
+    ),
+    path(
+        "donationsupply/<int:donationsupply_id>/delete",
+        render_donationsupply_delete,
+        name="donationsupply-delete",
+    ),
     path("admin/", admin.site.urls),
 ]
 

@@ -1,0 +1,46 @@
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load caristock %}
+{% block hero %}
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">{% translate "List Supplies" %}</p>
+      <p class="subtitle">{% translate "View all supplies in the system" %}</p>
+    </div>
+  </section>
+{% endblock hero %}
+{% block main %}
+  <!-- Search Box -->
+  <section class="section">
+    <div class="container">
+      {% if next %}
+        <h2 class="title">{% translate "Select Supply" %}</h2>
+      {% endif %}
+      <form method="get">
+        <input type="hidden" name="n" value="{{ next }}" />
+        <p class="label">{% translate "Search for known supplies" %}</p>
+        {% translate "Supply name..." as placeholder %}
+        {% include "caristock/blocks/search.html" with placeholder=placeholder name="q" value=query %}
+      </form>
+    </div>
+  </section>
+  <!-- Search Results -->
+  {% if results %}
+    <section class="section">
+      <div class="container">
+        <h2 class="title is-4">{% translate "Search Results" %}</h2>
+        {% for current in results %}
+          <p class="block">
+            <strong>{{ current.name }}</strong>
+          </p>
+          <p class="block">
+            {% translate "Select" as label %}
+            {% include "caristock/blocks/button.html" with label=label link=next|qkey:"supply"|qval:current.id icon="chevrons-right" %}
+          </p>
+          <hr />
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+{% endblock main %}

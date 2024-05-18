@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 class DonorManager(models.Manager):
     def search(self, query):
         if query:
-            name_matches = models.Q(name__contains=query)
-            document_matches = models.Q(document__contains=query)
+            name_matches = models.Q(name__icontains=query)
+            document_matches = models.Q(document__icontains=query)
             return self.filter(name_matches | document_matches)
         else:
             return self.all()[:20]

@@ -1,9 +1,12 @@
 from django.contrib import messages
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from inventory.models import Supply
 from people.models import Donor, Beneficiary
-from transactions.models import Donation, Pickup
+from transactions.forms import DonationSupplyForm
+from transactions.models import Donation, DonationSupply, Pickup
 
 
 def render_donation_create(request):
@@ -42,3 +45,41 @@ def render_pickup_create(request):
         pickup=pickup,
     )
     return render(request, "caristock/pickup-create.html", context=context)
+
+
+def render_donationsupply_create(request):
+    next = request.GET.get("n")
+    donation_id = request.GET.get("donation")
+    supply_id = request.GET.get("supply")
+    donation = Donation.objects.filter(pk=donation_id).first()
+    supply = Supply.objects.filter(pk=supply_id).first()
+    donationsupply, _ = DonationSupply.objects.get_or_create(
+        donation=donation, supply=supply, defaults=dict(quantity=1)
+    )
+    redirect_url = reverse("donationsupply-edit", args=[donationsupply.id])
+    return redirect(redirect_url + "?n=" + next)
+
+
+def render_donationsupply_edit(request, donationsupply_id):
+    next = request.GET.get("n")
+    donationsupply = get_object_or_404(DonationSupply, pk=donationsupply_id)
+    if request.method == "POST":
+        form = DonationSupplyForm(request.POST, instance=donationsupply)
+        if form.is_valid():
+            donationsupply = form.save()
+            if next:
+                return redirect(next)
+    else:
+        form = DonationSupplyForm(instance=donationsupply)
+    context = dict(
+        next=next,
+        form=form,
+        donationsupply=donationsupply,
+    )
+    return render(request, "caristock/donationsupply-edit.html", context=context)
+
+
+def render_donationsupply_delete(request, donationsupply_id):
+    next = request.GET.get("n", "/")
+    DonationSupply.objects.filter(pk=donationsupply_id).delete()
+    return redirect(next)
