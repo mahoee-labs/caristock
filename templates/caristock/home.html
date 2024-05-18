@@ -27,6 +27,12 @@
         {% translate "Create New Donation" as label %}
         {% include "caristock/blocks/button.html" with label=label link=donor_select_link|qkey:"n"|qval:donor_create_link icon="plus" class="is-link" %}
       </p>
+      <p class="level is-mobile">
+        {% url 'beneficiary-select' as beneficiary_select_link %}
+        {% url 'pickup-create' as beneficiary_create_link %}
+        {% translate "Create Pickup" as label %}
+        {% include "caristock/blocks/button.html" with label=label link=beneficiary_select_link|qkey:"n"|qval:beneficiary_create_link icon="plus" class="is-link" %}
+      </p>
     </div>
   </section>
   <section class="section">

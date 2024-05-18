@@ -31,7 +31,7 @@
             {% if next %}
               <div class="level-item">
                 {% translate "Continue" as label %}
-                {% include "caristock/blocks/button.html" with link=next|qkey:"beneficiary"|qval:beneficiary.id label=label class="is-primary" icon="chevrons-right" %}
+                {% include "caristock/blocks/button.html" with link="/" class="is-primary" icon="chevrons-right" %}
               </div>
             {% endif %}
           </div>

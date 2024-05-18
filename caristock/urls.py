@@ -27,7 +27,11 @@ from people.views import (
     render_donor_edit,
     render_donor_show,
 )
-from transactions.views import render_donation_build, render_donation_create
+from transactions.views import (
+    render_donation_build,
+    render_donation_create,
+    render_pickup_create,
+)
 
 
 urlpatterns = [
@@ -50,5 +54,6 @@ urlpatterns = [
     path(
         "donation/<int:donation_id>/build", render_donation_build, name="donation-build"
     ),
+    path("pickup/create", render_pickup_create, name="pickup-create"),
     path("admin/", admin.site.urls),
 ]
