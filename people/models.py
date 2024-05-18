@@ -96,6 +96,7 @@ class Beneficiary(ProjectModel):
     photo = models.ImageField(
         blank=True,
         null=True,
+        upload_to="images/beneficiary_photos/",
         verbose_name=_("Photo"),
     )
 

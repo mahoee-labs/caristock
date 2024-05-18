@@ -31,27 +31,42 @@
       <div class="container">
         <h2 class="title is-4">{% translate "Search Results" %}</h2>
         {% for beneficiary in search_results.beneficiaries %}
-          <p class="block">
-            <strong>{{ beneficiary.name }}</strong>
-          </p>
-          <div class="block">
-            <p>{{ beneficiary.email }}</p>
-            <p>{{ beneficiary.address_1 }}</p>
-            <p>{{ beneficiary.address_2 }}</p>
-          </div>
-          <p class="level is-mobile">
-            {% url 'beneficiary-show' beneficiary.id as beneficiary_link %}
-            {% if next %}
-              {% translate "Select Beneficiary" as label %}
-              {% include "caristock/blocks/button.html" with label=label link=beneficiary_link|qkey:"n"|qval:next icon="chevrons-right" %}
-            {% else %}
-              {% translate "View Beneficiary" as label %}
-              {% include "caristock/blocks/button.html" with label=label link=beneficiary_link %}
-            {% endif %}
-          </p>
-          <hr />
-        {% endfor %}
-      </div>
-    </section>
-  {% endif %}
-{% endblock main %}
+          <div class="block media">
+            <div class="media-left">
+              {% if beneficiary.photo %}
+                <figure class="image is-128x128">
+                  <img src="/media/{{ beneficiary.photo }}" alt="{{ beneficiary.name }}" />
+                </figure>
+              {% else %}
+                <figure class="image is-128x128">
+                  <img src="{% static 'images/default-photo.png' %}"
+                    alt=""
+                    width="128"
+                    height="128",
+                    class="image-fit>
+                  </figure>
+                {% endif %}
+              </div>
+              <div class="media-content">
+                <p class="title is-4">{{ beneficiary.name }}</p>
+                <p class="subtitle is-6">{{ beneficiary.email }}</p>
+                <p>{{ beneficiary.address_1 }}</p>
+                <p>{{ beneficiary.address_2 }}</p>
+                <p class="level is-mobile">
+                  {% url 'beneficiary-show' beneficiary.id as beneficiary_link %}
+                  {% if next %}
+                    {% translate "Select Beneficiary" as label %}
+                    {% include "caristock/blocks/button.html" with label=label link=beneficiary_link|qkey:"n"|qval:next icon="chevrons-right" %}
+                  {% else %}
+                    {% translate "View Beneficiary" as label %}
+                    {% include "caristock/blocks/button.html" with label=label link=beneficiary_link %}
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+            <hr />
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  {% endblock main %}

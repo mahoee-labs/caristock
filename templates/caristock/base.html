@@ -22,6 +22,11 @@
     .has-text-nowrap {
       text-wrap: nowrap !important;
     }
+    .image.is-128x128 > img {
+      width: 128px;
+      height: 128px;
+      object-fit: cover;
+    }
   </style>
   <body>
     {% if not next %}
