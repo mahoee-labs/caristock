@@ -24,8 +24,6 @@ from people.views import render_donor_select, render_donor_edit, render_donor_sh
 from transactions.views import (
     render_donation_build,
     render_donation_create,
-    render_donation_add,
-    render_donation_delete,
     render_donationsupply_create,
     render_donationsupply_edit,
     render_donationsupply_delete,
@@ -40,12 +38,6 @@ urlpatterns = [
     path("supply/select", render_supply_select, name="supply-select"),
     path("supply/<int:supply_id>/show", render_supply_show, name="supply-show"),
     path("donation/create", render_donation_create, name="donation-create"),
-    path("donation/<int:donation_id>/add", render_donation_add, name="donation-add"),
-    path(
-        "donation/<int:donation_id>/delete",
-        render_donation_delete,
-        name="donation-delete",
-    ),
     path(
         "donation/<int:donation_id>/build", render_donation_build, name="donation-build"
     ),
