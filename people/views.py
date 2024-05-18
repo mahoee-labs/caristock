@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 
-from caristock.utils import get_param, get_param_int
 from people.forms import DonorForm
 from people.models import Donor
 
@@ -23,7 +22,7 @@ def render_donor_select(request):
 
 def render_donor_show(request, donor_id):
     donor = get_object_or_404(Donor, pk=donor_id)
-    next = get_param(request, "n")
+    next = request.GET.get("n")
     if request.method == "POST":
         form = DonorForm(request.POST)
     else:
@@ -38,7 +37,7 @@ def render_donor_show(request, donor_id):
 
 def render_donor_edit(request, donor_id):
     donor = get_object_or_404(Donor, pk=donor_id)
-    next = get_param(request, "n")
+    next = request.GET.get("n")
     if request.method == "POST":
         form = DonorForm(request.POST)
     else:
