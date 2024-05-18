@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 
 from caristock.utils import get_param, get_param_int
-from people.forms import DonorForm
-from people.models import Donor
+from people.forms import BeneficiaryForm, DonorForm
+from people.models import Donor, Beneficiary
 
 
 def render_donor_select(request):
@@ -49,3 +49,49 @@ def render_donor_edit(request, donor_id):
         donor=donor,
     )
     return render(request, "caristock/donor-edit.html", context=context)
+
+
+def render_beneficiary_select(request):
+    query = request.GET.get("q", "")
+    next = request.GET.get("n")
+    found = list(Beneficiary.objects.search(query))
+    search_results = dict(
+        count=len(found),
+        beneficiaries=found,
+    )
+    context = dict(
+        query=query,
+        next=next,
+        search_results=search_results,
+    )
+    return render(request, "caristock/beneficiary-select.html", context=context)
+
+
+def render_beneficiary_show(request, beneficiary_id):
+    beneficiary = get_object_or_404(Beneficiary, pk=beneficiary_id)
+    next = get_param(request, "n")
+    if request.method == "POST":
+        form = BeneficiaryForm(request.POST)
+    else:
+        form = BeneficiaryForm(instance=beneficiary)
+    context = dict(
+        next=next,
+        form=form,
+        beneficiary=beneficiary,
+    )
+    return render(request, "caristock/beneficiary-show.html", context=context)
+
+
+def render_beneficiary_edit(request, donor_id):
+    beneficiary = get_object_or_404(Beneficiary, pk=donor_id)
+    next = get_param(request, "n")
+    if request.method == "POST":
+        form = BeneficiaryForm(request.POST)
+    else:
+        form = BeneficiaryForm(instance=beneficiary)
+    context = dict(
+        next=next,
+        form=form,
+        beneficiary=beneficiary,
+    )
+    return render(request, "caristock/beneficiary-edit.html", context=context)

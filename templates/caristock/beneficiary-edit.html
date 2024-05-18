@@ -1,0 +1,24 @@
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load caristock %}
+{% block hero %}
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">{{ beneficiary.name }}</p>
+      <p class="subtitle">{% translate "Edit Beneficiary" %}</p>
+    </div>
+  </section>
+{% endblock hero %}
+{% block main %}
+  <!-- Beneficiary Information -->
+  <section class="section">
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p|add_form_bulma_classes }}
+        <button type="submit" class="button is-primary">Submit</button>
+      </form>
+    </div>
+  </section>
+{% endblock main %}

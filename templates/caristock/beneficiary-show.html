@@ -1,0 +1,42 @@
+{% extends "caristock/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load caristock %}
+{% block hero %}
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <p class="title">{{ beneficiary.name }}</p>
+      <p class="subtitle">{% translate "View Beneficiary" %}</p>
+    </div>
+  </section>
+{% endblock hero %}
+{% block main %}
+  <section class="section">
+    <div class="container">
+      {% if next %}
+        <h2 class="title">{% translate "Confirm Beneficiary" %}</h2>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form|disabled_form|add_form_bulma_classes }}
+        <div class="level is-mobile">
+          <div class="level-left">
+            <div class="level-item">
+              {% url 'beneficiary-edit' beneficiary.id as edit %}
+              {% translate "Edit" as label %}
+              {% include "caristock/blocks/button.html" with link=edit|qkey:"beneficiary"|qval:beneficiary.id label=label %}
+            </div>
+          </div>
+          <div class="level-right">
+            {% if next %}
+              <div class="level-item">
+                {% translate "Continue" as label %}
+                {% include "caristock/blocks/button.html" with link=next|qkey:"beneficiary"|qval:beneficiary.id label=label class="is-primary" icon="chevrons-right" %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock main %}
