@@ -13,7 +13,11 @@ def disabled_form(form):
 
 
 @register.filter
-def add_form_bulma_classes(html_content):
+def add_form_bulma_classes(content):
+    if isinstance(content, str):
+        html_content = content
+    else:
+        html_content = content.as_p()
     html_content = html_content.replace("<p>", '<p class="block">')
     html_content = html_content.replace("<label", '<label class="label"')
     html_content = html_content.replace("<input", '<input class="input"')

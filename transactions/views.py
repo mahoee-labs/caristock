@@ -25,13 +25,21 @@ def render_donation_create(request):
 def render_donation_add(request, donation_id):
     donation = get_object_or_404(Donation, pk=donation_id)
     supply_id = request.GET.get("s")
+    quantity = int(request.GET.get("quantity", 1))
     supply = Supply.objects.filter(pk=supply_id).first()
     if supply is None:
         messages.error(request, _("Could not find selected supply."))
-    elif DonationSupply.objects.filter(donation=donation, supply=supply).exists():
-        messages.warning(request, _("That supply was already added before."))
     else:
-        DonationSupply.objects.create(donation=donation, supply=supply, quantity=1)
+        obj, created = DonationSupply.objects.update_or_create(
+            donation=donation,
+            supply=supply,
+            defaults=dict(
+                quantity=quantity,
+            ),
+        )
+        if not created:
+            messages.info(request, _("Updated supply quantity"))
+
     return redirect("donation-build", donation.id)
 
 

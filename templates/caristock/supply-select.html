@@ -35,8 +35,9 @@
             <strong>{{ current.name }}</strong>
           </p>
           <p class="block">
+            {% url 'supply-show' current.id as show_url %}
             {% translate "Select" as label %}
-            {% include "caristock/blocks/button.html" with label=label link=next|qkey:"s"|qval:current.id icon="chevrons-right" %}
+            {% include "caristock/blocks/button.html" with label=label link=show_url|qkey:"n"|qval:next icon="chevrons-right" %}
           </p>
           <hr />
         {% endfor %}

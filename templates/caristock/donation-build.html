@@ -29,7 +29,9 @@
       <h2 class="title is-4">{% translate "Supplies" %}</h2>
       <table class="table is-fullwidth is-hoverable">
         <colgroup>
+          {# djlint:off #}
           <col style="width: 60%" />
+          {# djlint:on #}
           <col />
           <col />
         </colgroup>
@@ -46,8 +48,10 @@
               <td>{{ current.supply.name }}</td>
               <td>{{ current.quantity }}</td>
               <td class="has-text-right has-text-nowrap">
+                {% url 'supply-show' current.supply.id as show_url %}
+                {% url 'donation-add' donation.id as add_url %}
                 {% include "caristock/blocks/button.html" with link="..." icon="trash" %}
-                {% include "caristock/blocks/button.html" with link="..." icon="edit-2" %}
+                {% include "caristock/blocks/button.html" with link=show_url|qkey:'n'|qval:add_url|qkey:'quantity'|qval:current.quantity icon="edit-2" %}
               </td>
             </tr>
           {% endfor %}

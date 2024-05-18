@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path
 
 from caristock.views import render_home
-from inventory.views import render_supply_select
+from inventory.views import render_supply_select, render_supply_show
 from people.views import render_donor_select, render_donor_edit, render_donor_show
 from transactions.views import (
     render_donation_build,
@@ -34,6 +34,7 @@ urlpatterns = [
     path("donor/<int:donor_id>/show", render_donor_show, name="donor-show"),
     path("donor/<int:donor_id>/edit", render_donor_edit, name="donor-edit"),
     path("supply/select", render_supply_select, name="supply-select"),
+    path("supply/<int:supply_id>/show", render_supply_show, name="supply-show"),
     path("donation/create", render_donation_create, name="donation-create"),
     path("donation/<int:donation_id>/add", render_donation_add, name="donation-add"),
     path(
