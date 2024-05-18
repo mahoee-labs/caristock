@@ -26,6 +26,8 @@ from transactions.views import (
     render_donation_create,
     render_donation_add,
     render_donation_delete,
+    render_donationsupply_create,
+    render_donationsupply_edit,
 )
 
 
@@ -45,6 +47,16 @@ urlpatterns = [
     ),
     path(
         "donation/<int:donation_id>/build", render_donation_build, name="donation-build"
+    ),
+    path(
+        "donationsupply/create",
+        render_donationsupply_create,
+        name="donationsupply-create",
+    ),
+    path(
+        "donationsupply/<int:donationsupply_id>/edit",
+        render_donationsupply_edit,
+        name="donationsupply-edit",
     ),
     path("admin/", admin.site.urls),
 ]

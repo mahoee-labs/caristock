@@ -14,9 +14,12 @@
   <!-- Donation Head -->
   <section class="section">
     <div class="container">
-      {% url 'donation-add' donation.id as add_url %}
+      {% url 'donation-build' donation.id as build_url %}
+      {% url 'donationsupply-create' as create_url %}
       <form method="get" action="{% url 'supply-select' %}">
-        <input type="hidden" name="n" value="{{ add_url|urlencode }}" />
+        <input type="hidden"
+               name="n"
+               value="{{ create_url }}?donation={{ donation.id }}&n={{ build_url }}" />
         <p class="label">{% translate "Search for items to add to this donation" %}</p>
         {% translate "Supply..." as placeholder %}
         {% include "caristock/blocks/search.html" with placeholder=placeholder name="q" value=query %}
