@@ -12,4 +12,4 @@ class DonorForm(forms.ModelForm):
 class BeneficiaryForm(forms.ModelForm):
     class Meta:
         model = Beneficiary
-        fields = ["name", "document", "photo"]
+        fields = ["name", "document"]
