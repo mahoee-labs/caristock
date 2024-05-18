@@ -18,6 +18,11 @@
   <section class="section">
     {% if next %}
       <h2 class="title">{% translate "Donation Supply" %}</h2>
+      <p class="subtitle">
+        {% blocktranslate with donation_id=donationsupply.donation.id donor_name=donationsupply.donation.donor.name %}
+        Change supply for donation #{{ donation_id }} in name of {{ donor_name }}
+        {% endblocktranslate %}
+      </p>
     {% endif %}
     <div class="container">
       <form method="post">

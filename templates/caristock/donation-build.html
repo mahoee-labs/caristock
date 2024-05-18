@@ -51,11 +51,11 @@
               <td>{{ current.supply.name }}</td>
               <td>{{ current.quantity }}</td>
               <td class="has-text-right has-text-nowrap">
-                {% url 'supply-show' current.supply.id as show_url %}
-                {% url 'donation-add' donation.id as add_url %}
-                {% url 'donation-delete' donation.id as delete_url %}
-                {% include "caristock/blocks/button.html" with link=delete_url|qkey:"s"|qval:current.supply.id icon="trash" %}
-                {% include "caristock/blocks/button.html" with link=show_url|qkey:"n"|qval:add_url|qkey:"quantity"|qval:current.quantity icon="edit-2" %}
+                {% url 'donation-build' donation.id as build_url %}
+                {% url 'donationsupply-edit' current.id as edit_url %}
+                {% url 'donationsupply-delete' current.id as delete_url %}
+                {% include "caristock/blocks/button.html" with link=delete_url|qkey:"n"|qval:build_url icon="trash" %}
+                {% include "caristock/blocks/button.html" with link=edit_url|qkey:"n"|qval:build_url icon="edit-2" %}
               </td>
             </tr>
           {% endfor %}

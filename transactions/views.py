@@ -95,3 +95,9 @@ def render_donationsupply_edit(request, donationsupply_id):
         donationsupply=donationsupply,
     )
     return render(request, "caristock/donationsupply-edit.html", context=context)
+
+
+def render_donationsupply_delete(request, donationsupply_id):
+    next = request.GET.get("n", "/")
+    DonationSupply.objects.filter(pk=donationsupply_id).delete()
+    return redirect(next)
