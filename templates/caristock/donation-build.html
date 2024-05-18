@@ -50,8 +50,9 @@
               <td class="has-text-right has-text-nowrap">
                 {% url 'supply-show' current.supply.id as show_url %}
                 {% url 'donation-add' donation.id as add_url %}
-                {% include "caristock/blocks/button.html" with link="..." icon="trash" %}
-                {% include "caristock/blocks/button.html" with link=show_url|qkey:'n'|qval:add_url|qkey:'quantity'|qval:current.quantity icon="edit-2" %}
+                {% url 'donation-delete' donation.id as delete_url %}
+                {% include "caristock/blocks/button.html" with link=delete_url|qkey:"s"|qval:current.supply.id icon="trash" %}
+                {% include "caristock/blocks/button.html" with link=show_url|qkey:"n"|qval:add_url|qkey:"quantity"|qval:current.quantity icon="edit-2" %}
               </td>
             </tr>
           {% endfor %}
